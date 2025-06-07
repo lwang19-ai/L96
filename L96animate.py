@@ -1,6 +1,7 @@
 """Lorenz 1996 model animation (with zonally varying damping)
 Lorenz E., 1996. Predictability: a problem partly solved. In
 Predictability. Proc 1995. ECMWF Seminar, 1-18."""
+# %%
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -34,7 +35,7 @@ def updatefig(n):
     model.advance()
     u = model.x.squeeze()
     line.set_ydata(u)
-    print n,u.min(),u.max()
+    print(n,u.min(),u.max())
     uu.append(u); tt.append(n*model.dt)
     return line,
 
@@ -49,14 +50,14 @@ plt.figure()
 # make contour plot of solution, plot spectrum.
 ncount = len(uu)
 uu = np.array(uu); tt = np.array(tt)
-print tt.min(), tt.max()
-print uu.shape
+print(tt.min(), tt.max())
+print(uu.shape)
 uup = uu - uu.mean(axis=0)
-print uup.shape
+print(uup.shape)
 cov = np.dot(uup.T,uup)/(ncount-1)
-print 'cov',cov.min(), cov.max(), cov.shape
+print('cov', cov.min(), cov.max(), cov.shape)
 nplt = 500
-print uu[:nplt].min(), uu[:nplt].max()
+print(uu[:nplt].min(), uu[:nplt].max())
 plt.contourf(x,tt[:nplt],uu[:nplt],np.linspace(-18,18,41),cmap=plt.cm.bwr,extend='both')
 plt.xlabel('x')
 plt.ylabel('t')
@@ -65,7 +66,7 @@ plt.title('time-longitude snapshot of modified L96 model')
 plt.savefig('hovmuller.png')
 
 plt.figure()
-print cov.min(), cov.max()
+print(cov.min(), cov.max())
 plt.pcolormesh(x,x,cov,cmap=plt.cm.bwr,vmin=-30,vmax=30)
 plt.title('climatological covariance matrix for modified L96 model')
 plt.xlabel('grid index')
